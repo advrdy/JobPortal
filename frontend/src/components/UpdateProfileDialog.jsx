@@ -61,11 +61,11 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
     formData.append("bio", input.bio);
     formData.append("skills", input.skills);
     if (input.file) {
-      formData.append("file", input.file); // Append file only if it exists
+      formData.append("file", input.file);
     }
 
     try {
-      setLoading(true); // Set loading only after validation passes
+      setLoading(true);
       const res = await axios.post(
         `${USER_API_END_POINT}/profile/update`,
         formData,
@@ -84,9 +84,9 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
       console.log(error);
       toast.error(error.response?.data?.message || "Something went wrong.");
     } finally {
-      setLoading(false); // Always reset loading
+      setLoading(false);
     }
-    setOpen(false); // Close dialog
+    setOpen(false);
     console.log(input);
   };
 

@@ -16,7 +16,6 @@ const app = express();
 
 const _dirname = path.resolve();
 
-// middleware
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(urlencoded({ extended: true }));
@@ -30,7 +29,6 @@ app.use(cors(corsOptions));
 
 const PORT = process.env.PORT || 3000;
 
-// api's
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/company", companyRoute);
 app.use("/api/v1/job", jobRoute);

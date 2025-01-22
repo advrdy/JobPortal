@@ -46,7 +46,7 @@ const Signup = () => {
       return;
     }
 
-    const formData = new FormData(); //formdata object
+    const formData = new FormData();
     formData.append("fullname", input.fullname);
     formData.append("email", input.email);
     formData.append("phoneNumber", input.phoneNumber);

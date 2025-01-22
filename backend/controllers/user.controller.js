@@ -10,7 +10,6 @@ export const register = async (req, res) => {
   try {
     const { fullname, email, phoneNumber, password, role } = req.body;
 
-    // Check for missing required fields
     if (!fullname || !email || !phoneNumber || !password || !role) {
       return res.status(400).json({
         message: "Something is missing.",
@@ -18,7 +17,6 @@ export const register = async (req, res) => {
       });
     }
 
-    // Check if user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({
@@ -29,16 +27,13 @@ export const register = async (req, res) => {
 
     let cloudResponse = null;
 
-    // Process file upload if a file exists
     if (req.file) {
       const fileUri = getDataUri(req.file);
       cloudResponse = await cloudinary.uploader.upload(fileUri.content);
     }
 
-    // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Create the user
     const newUser = {
       fullname,
       email,
@@ -46,7 +41,7 @@ export const register = async (req, res) => {
       password: hashedPassword,
       role,
       profile: {
-        profilePhoto: cloudResponse?.secure_url || null, // Save the profile photo URL if available
+        profilePhoto: cloudResponse?.secure_url || null,
       },
     };
 
@@ -57,7 +52,7 @@ export const register = async (req, res) => {
       success: true,
     });
   } catch (error) {
-    console.error(error); // Improved logging
+    console.error(error);
     return res.status(500).json({
       message: "An error occurred while creating the account.",
       success: false,
@@ -88,7 +83,7 @@ export const login = async (req, res) => {
         success: false,
       });
     }
-    // check role is correct or not
+
     if (role !== user.role) {
       return res.status(400).json({
         message: "Account doesn't exist with current role.",
@@ -142,7 +137,7 @@ export const updateProfile = async (req, res) => {
   try {
     const { fullname, email, phoneNumber, bio, skills } = req.body;
 
-    const userId = req.id; // Middleware authentication
+    const userId = req.id;
     let user = await User.findById(userId);
 
     if (!user) {
@@ -154,7 +149,6 @@ export const updateProfile = async (req, res) => {
 
     let cloudResponse;
     if (req.file) {
-      // Process the uploaded file only if it exists
       const fileUri = getDataUri(req.file);
       cloudResponse = await cloudinary.uploader.upload(fileUri.content);
     }
@@ -164,17 +158,15 @@ export const updateProfile = async (req, res) => {
       skillsArray = skills.split(",");
     }
 
-    // Updating user data
     if (fullname) user.fullname = fullname;
     if (email) user.email = email;
     if (phoneNumber) user.phoneNumber = phoneNumber;
     if (bio) user.profile.bio = bio;
     if (skills) user.profile.skills = skillsArray;
 
-    // Save resume URL if a file was uploaded
     if (cloudResponse) {
-      user.profile.resume = cloudResponse.secure_url; // Save the Cloudinary URL
-      user.profile.resumeOriginalName = req.file.originalname; // Save the original file name
+      user.profile.resume = cloudResponse.secure_url;
+      user.profile.resumeOriginalName = req.file.originalname;
     }
 
     await user.save();
