@@ -33,6 +33,19 @@ const Signup = () => {
   };
   const submitHandler = async (e) => {
     e.preventDefault();
+
+    if (
+      !input.fullname ||
+      !input.email ||
+      !input.phoneNumber ||
+      !input.password ||
+      !input.role ||
+      !input.file
+    ) {
+      toast.error("Please fill all the fields");
+      return;
+    }
+
     const formData = new FormData(); //formdata object
     formData.append("fullname", input.fullname);
     formData.append("email", input.email);
@@ -72,12 +85,13 @@ const Signup = () => {
       <div className="flex items-center justify-center max-w-7xl mx-auto">
         <form
           onSubmit={submitHandler}
-          className="w-1/2 border border-gray-200 rounded-md p-4 my-10"
+          className="w-1/2 border border-gray-200 rounded-md p-4 my-10 shadow-lg"
         >
           <h1 className="font-bold text-xl mb-5">Sign Up</h1>
           <div className="my-2">
-            <Label>Full Name</Label>
+            <Label className="text-md">Full Name</Label>
             <Input
+              className="mt-3"
               type="text"
               value={input.fullname}
               name="fullname"
@@ -85,8 +99,9 @@ const Signup = () => {
             />
           </div>
           <div className="my-2">
-            <Label>Email</Label>
+            <Label className="text-md">Email</Label>
             <Input
+              className="mt-3"
               type="email"
               value={input.email}
               name="email"
@@ -94,8 +109,9 @@ const Signup = () => {
             />
           </div>
           <div className="my-2">
-            <Label>Phone Number</Label>
+            <Label className="text-md">Phone Number</Label>
             <Input
+              className="mt-3"
               type="text"
               value={input.phoneNumber}
               name="phoneNumber"
@@ -103,8 +119,9 @@ const Signup = () => {
             />
           </div>
           <div className="my-2">
-            <Label>Password</Label>
+            <Label className="text-md">Password</Label>
             <Input
+              className="mt-3"
               type="password"
               value={input.password}
               name="password"

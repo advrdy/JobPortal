@@ -71,7 +71,7 @@ const PostJob = () => {
   return (
     <div>
       <Navbar />
-      <div className="flex items-center justify-center w-screen my-5">
+      <div className="flex items-center justify-center  my-5">
         <form
           onSubmit={submitHandler}
           className="p-8 max-w-4xl border border-gray-200 shadow-lg rounded-md"
@@ -196,7 +196,7 @@ const PostJob = () => {
           )}
           {companies.length === 0 && (
             <p className="text-xs text-red-600 font-bold text-center my-3">
-              *Please register a company first, before posting a jobs
+              *Please register a company first, before posting a job
             </p>
           )}
         </form>
