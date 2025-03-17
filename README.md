@@ -103,16 +103,16 @@ npm start
 
 ```
 job-portal/
-├── frontend/                 # React frontend application
-│   ├── src/                 # Source files
-│   ├── public/              # Static files
-│   └── package.json         # Frontend dependencies
-├── backend/                 # Node.js backend application
-│   ├── controllers/         # Route controllers
-│   ├── models/             # Database models
-│   ├── routes/             # API routes
-│   ├── middlewares/        # Custom middlewares
-│   ├── utils/              # Utility functions
-│   └── index.js            # Entry point
-└── package.json            # Backend dependencies
+├── frontend/                
+│   ├── src/               
+│   ├── public/             
+│   └── package.json        
+├── backend/                
+│   ├── controllers/        
+│   ├── models/             
+│   ├── routes/             
+│   ├── middlewares/        
+│   ├── utils/              
+│   └── index.js            
+└── package.json            
 ```
